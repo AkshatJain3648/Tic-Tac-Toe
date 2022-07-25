@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Open+Sans&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+:root{
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .9)
+}
+
+/* Styling the board */
+.board{
+   width: 100vw;
+   height: 100vh;
+   /* background-color: blue; */
+   display: grid;
+   justify-content: center;
+   align-content: center;
+   grid-template-columns: repeat(3, auto);
+}
+
+/* Styling each cell of the board */
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border:1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.cell:hover:not(.x):not(.circle){
+    background-color: rgba(62, 88, 117, 0.267);
+    transition:0.3s;
+}
+
+/* Removing extra borders of the board */
+.bt-0{ border-top: none;}
+.bb-0{border-bottom: none;}
+.bl-0{ border-left: none;}
+.br-0{border-right: none;}
+
+/* Creating the X mark*/
+.cell.x::before,
+.cell.x::after{
+    content: '';
+    width: calc(var(--mark-size) * .12);
+    height: var(--mark-size);
+    background-color: black;
+    position: absolute;
+}
+
+.cell.x::before{
+    transform: rotate(45deg);
+}
+
+.cell.x::after{
+    transform: rotate(-45deg);
+}
+
+/* Creating the O mark */
+.cell.circle::before,
+.cell.circle::after{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.cell.circle::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background-color: black;
+}
+
+.cell.circle::after{
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: white;
+}
+
+/* Restricting player to click on x or circle cell of the board */
+.cell.x{cursor: not-allowed;}
+.cell.circle{cursor: not-allowed;}
+
+/* Styling the winning message section */
+.winning-message{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5.2rem;
+    flex-direction: column;
+}
+
+.winning-message > button{
+    font-size: 3.2rem;
+    background-color: rgba(255, 255, 255, 0.808);
+    border:1px solid black;
+    padding:.25em .5em;
+    cursor: pointer;
+    margin-top: 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.winning-message > button:hover{
+    background-color: black;
+    color: white;
+    border-color: white;
+    transition: 0.3s;
+}
+
+.winning-message.show{
+    display: flex;
+}
